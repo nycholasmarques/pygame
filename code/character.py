@@ -78,12 +78,9 @@ class Character:
         for action, filename in sprites_path.items():
             if os.path.exists(filename):
                 self.animations[action] = pygame.image.load(filename)
-                print(f"Sprite carregado: {action} - {filename}, Size: {self.animations[action].get_size()}")
             else:
-                print(f"Erro: Arquivo não encontrado - {filename}")
                 self.animations[action] = pygame.Surface((50, 50))
         self.animations["dead"] = pygame.image.load("assets/character/Dead.png")
-        print(f"Sprite carregado: dead - assets/character/Dead.png, Size: {self.animations['dead'].get_size()}")
         self.animation_frames = animation_frames
         self.animation_frames["dead"] = 4
         self.update_frame_size()
@@ -95,9 +92,7 @@ class Character:
             first_action = next(iter(self.animation_frames.keys()))
             self.FRAME_WIDTH = first_anim.get_width() // self.animation_frames[first_action]
             self.FRAME_HEIGHT = first_anim.get_height()
-            print(f"FRAME_WIDTH: {self.FRAME_WIDTH}, FRAME_HEIGHT: {self.FRAME_HEIGHT}")
-            print(f"Hitbox: {self.hitbox_width}x{self.hitbox_height} at offset ({self.hitbox_offset_x}, {self.hitbox_offset_y})")
-
+        
     def get_frame(self, flip=False):
         """Retorna o frame atual da animação, invertido se necessário."""
         if self.current_action not in self.animations:
